@@ -16,6 +16,9 @@ def get_files_info(working_directory, directory="."):
     if not dir_contents:
         return f'No files found in directory "{directory}"'
     
-    dir_info = map(lambda item: f" - {item}: file_size={os.path.getsize(os.path.join(path, item))} bytes, is_dir={os.path.isdir(os.path.join(path, item))}", dir_contents)
+    try:
+        dir_info = map(lambda item: f" - {item}: file_size={os.path.getsize(os.path.join(path, item))} bytes, is_dir={os.path.isdir(os.path.join(path, item))}", dir_contents)
+    except Exception as e:
+        return f'Error listing directory "{directory}": {str(e)}'
 
     return "\n".join(dir_info)
