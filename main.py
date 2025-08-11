@@ -19,6 +19,12 @@ def main():
         types.Content(role="user", parts=[types.Part(text=user_prompt)]),
     ]
 
+    # check for verbose mode
+    verbose = "--verbose" in sys.argv
+    if verbose:
+        print("Verbose mode is ON")
+        print("User prompt:", user_prompt)
+
     # set up genai client
     load_dotenv()
     api_key = os.environ.get("GEMINI_API_KEY")
@@ -33,8 +39,9 @@ def main():
     # print the response
     print(response.text)
 
-    print("Prompt tokens:", response.usage_metadata.prompt_token_count)
-    print("Response tokens:", response.usage_metadata.candidates_token_count)
+    if verbose:
+        print("Prompt tokens:", response.usage_metadata.prompt_token_count)
+        print("Response tokens:", response.usage_metadata.candidates_token_count)
     
 
 if __name__ == "__main__":
