@@ -4,11 +4,11 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 from config import SYSTEM_PROMPT
-from functions.genai_function_schemas import schema_get_files_info
+from functions.genai_function_schemas import schema_get_files_info, schema_get_file_content, schema_run_python_file, schema_write_file
 
 
 def main():
-    
+
     # check if a prompt is provided
     if len(sys.argv) < 2:
         print("No arguments provided. Please include a prompt.")
@@ -33,6 +33,9 @@ def main():
     available_functions = types.Tool(
         function_declarations=[
             schema_get_files_info,
+            schema_get_file_content,
+            schema_run_python_file,
+            schema_write_file,
         ]
     )
 
