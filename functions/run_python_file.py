@@ -2,7 +2,10 @@ import os
 import sys
 import subprocess
 
-def run_python_file(working_directory, file_path, args=[]):
+def run_python_file(working_directory, file_path, args=None):
+    if args is None:
+        args = []
+    
     path = os.path.join(working_directory, file_path)
     abs_path = os.path.abspath(path)
     wd_abs_path = os.path.abspath(working_directory)
@@ -21,7 +24,7 @@ def run_python_file(working_directory, file_path, args=[]):
         result = subprocess.run(command, timeout=30, capture_output=True, text=True)
         if result.returncode != 0:
             return f'Error: running file "{file_path}": {result.stderr}. Process exited with code {result.returncode}'
-        if not result.stdout:
+        if not result.stdout and not result.stderr:
             return f'No output produced.'
 
         result_string = f"STDOUT: {result.stdout}, STDERR: {result.stderr}"

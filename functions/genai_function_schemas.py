@@ -45,6 +45,7 @@ schema_run_python_file = types.FunctionDeclaration(
                 description="A list of optional arguments to pass to the Python file being executed. Each argument should be a separate string.",
             ),
         },
+        required=["file_path"],
     ),
 )
 
@@ -58,7 +59,7 @@ schema_write_file = types.FunctionDeclaration(
                 type=types.Type.STRING,
                 description="The file path to write to or overwrite, relative to the working directory.",
             ),
-            "contents": types.Schema(
+            "content": types.Schema(
                 type=types.Type.STRING,
                 description="The content to write to the file. If the file already exists, it will be overwritten.",
             ),
